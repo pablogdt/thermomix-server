@@ -24,7 +24,7 @@ public class Step {
     private String description;
     private boolean usesThermomix = true;
 
-    @OneToMany(mappedBy="step")
+    @OneToMany(mappedBy="step", cascade=CascadeType.ALL)
     @JsonBackReference
     private List<RecipeIngredient> recipeIngredientsToAdd;
 
