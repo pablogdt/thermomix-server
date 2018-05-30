@@ -1,7 +1,7 @@
 package es.pablogdt.thermomix.model;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.google.common.base.Joiner;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -11,6 +11,7 @@ import java.util.stream.Collectors;
 
 @Data
 @Entity
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class Step {
     @Id
     @GeneratedValue
@@ -25,7 +26,6 @@ public class Step {
     private boolean usesThermomix = true;
 
     @OneToMany(mappedBy="step", cascade=CascadeType.ALL)
-    @JsonBackReference
     private List<RecipeIngredient> recipeIngredientsToAdd;
 
 //    @ManyToOne
@@ -45,7 +45,7 @@ public class Step {
                 ", description='" + description + '\'' +
                 ", usesThermomix=" + usesThermomix +
                 ", recipeIngredientsToAdd=" +
-                recipeIngredientsToAdd.stream().map(recipeIngredient -> recipeIngredient.getIngredient().getName()).collect(Collectors.toList()) +
+                (recipeIngredientsToAdd == null ? null : recipeIngredientsToAdd.stream().map(recipeIngredient -> recipeIngredient.getIngredient().getName()).collect(Collectors.toList())) +
                 '}';
     }
 }

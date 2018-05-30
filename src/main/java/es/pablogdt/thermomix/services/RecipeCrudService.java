@@ -31,17 +31,17 @@ public class RecipeCrudService {
     @Transactional
     public Recipe addRecipe(final Recipe recipe) {
         for (Step step : recipe.getSteps()) {
-            for (RecipeIngredient recipeIngredientToAdd : step.getRecipeIngredientsToAdd()) {
-                Ingredient persistedIngredient = ingredientRepository.findByName(recipeIngredientToAdd.getIngredient().getName());
-                if (persistedIngredient == null) {
-                    ingredientRepository.save(recipeIngredientToAdd.getIngredient());
-                } else {
-                    recipeIngredientToAdd.setIngredient(persistedIngredient);
+            if (step.getRecipeIngredientsToAdd() != null && !step.getRecipeIngredientsToAdd().isEmpty()) {
+                for (RecipeIngredient recipeIngredientToAdd : step.getRecipeIngredientsToAdd()) {
+                    Ingredient persistedIngredient = ingredientRepository.findByName(recipeIngredientToAdd.getIngredient().getName());
+                    if (persistedIngredient == null) {
+                        ingredientRepository.save(recipeIngredientToAdd.getIngredient());
+                    } else {
+                        recipeIngredientToAdd.setIngredient(persistedIngredient);
+                    }
+                    recipeIngredientToAdd.setStep(step);
                 }
-                recipeIngredientToAdd.setStep(step);
-                recipeIngredientRepository.save(recipeIngredientToAdd);
             }
-            stepRepository.save(step);
         }
         return recipeRepository.save(recipe);
     }
