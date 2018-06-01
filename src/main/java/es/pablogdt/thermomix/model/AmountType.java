@@ -1,5 +1,5 @@
 package es.pablogdt.thermomix.model;
 
 public enum AmountType {
-    GRAMES, PINCH, SPOON, TEASPOON, MILLILITERS
+    GRAMES, PINCH, SPOON, TEASPOON, MILLILITERS, PACKET
 }
