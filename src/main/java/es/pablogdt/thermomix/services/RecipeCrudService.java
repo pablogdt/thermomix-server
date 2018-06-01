@@ -30,20 +30,7 @@ public class RecipeCrudService {
 
     @Transactional
     public Recipe addRecipe(final Recipe recipe) {
-        for (Step step : recipe.getSteps()) {
-            if (step.getRecipeIngredientsToAdd() != null && !step.getRecipeIngredientsToAdd().isEmpty()) {
-                for (RecipeIngredient recipeIngredientToAdd : step.getRecipeIngredientsToAdd()) {
-                    Ingredient persistedIngredient = ingredientRepository.findByName(recipeIngredientToAdd.getIngredient().getName());
-                    if (persistedIngredient == null) {
-                        ingredientRepository.save(recipeIngredientToAdd.getIngredient());
-                    } else {
-                        recipeIngredientToAdd.setIngredient(persistedIngredient);
-                    }
-                    recipeIngredientToAdd.setStep(step);
-                }
-            }
-        }
-        return recipeRepository.save(recipe);
+        return saveRecipe(recipe);
     }
 
     public List<Recipe> findRecipesByCategory(final String category) {
@@ -69,5 +56,31 @@ public class RecipeCrudService {
 
     public Recipe findById(final Long id) {
         return recipeRepository.findById(id).orElse(null);
+    }
+
+    public Recipe modifyRecipe(final Long id, final Recipe recipe) throws Exception {
+        Optional<Recipe> recipeOptional = recipeRepository.findById(id);
+        if (!recipeOptional.isPresent()) {
+            throw new Exception("No recipe with id " + id + " was found");
+        } else {
+            return saveRecipe(recipe);
+        }
+    }
+
+    private Recipe saveRecipe(Recipe recipe) {
+        for (Step step : recipe.getSteps()) {
+            if (step.getRecipeIngredientsToAdd() != null && !step.getRecipeIngredientsToAdd().isEmpty()) {
+                for (RecipeIngredient recipeIngredientToAdd : step.getRecipeIngredientsToAdd()) {
+                    Ingredient persistedIngredient = ingredientRepository.findByName(recipeIngredientToAdd.getIngredient().getName());
+                    if (persistedIngredient == null) {
+                        ingredientRepository.save(recipeIngredientToAdd.getIngredient());
+                    } else {
+                        recipeIngredientToAdd.setIngredient(persistedIngredient);
+                    }
+                    recipeIngredientToAdd.setStep(step);
+                }
+            }
+        }
+        return recipeRepository.save(recipe);
     }
 }

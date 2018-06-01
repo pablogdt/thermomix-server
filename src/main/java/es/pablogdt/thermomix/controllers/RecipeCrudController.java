@@ -23,6 +23,12 @@ public class RecipeCrudController {
         return recipeCrudService.addRecipe(recipe);
     }
 
+    @PostMapping("/update/{id}")
+    @ResponseBody
+    public Recipe modifyRecipe(@PathVariable("id") Long id, @RequestBody Recipe recipe) throws Exception {
+        return recipeCrudService.modifyRecipe(id, recipe);
+    }
+
     @GetMapping("/find/{id}")
     @ResponseBody
     public Recipe findById(@PathVariable("id") Long id) {
