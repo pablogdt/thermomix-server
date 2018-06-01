@@ -25,7 +25,7 @@ public class Step {
     private String description;
     private boolean usesThermomix = true;
 
-    @OneToMany(mappedBy="step", cascade=CascadeType.ALL)
+    @OneToMany(mappedBy="step", cascade=CascadeType.ALL, orphanRemoval = true)
     private List<RecipeIngredient> recipeIngredientsToAdd;
 
 //    @ManyToOne

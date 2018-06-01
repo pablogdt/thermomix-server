@@ -63,7 +63,12 @@ public class RecipeCrudService {
         if (!recipeOptional.isPresent()) {
             throw new Exception("No recipe with id " + id + " was found");
         } else {
-            return saveRecipe(recipe);
+            Recipe storedRecipe = recipeOptional.get();
+            storedRecipe.getSteps().clear();
+            storedRecipe.getSteps().addAll(recipe.getSteps());
+            storedRecipe.setCategory(recipe.getCategory());
+            storedRecipe.setName(recipe.getName());
+            return saveRecipe(storedRecipe);
         }
     }
 

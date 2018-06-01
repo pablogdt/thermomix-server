@@ -4,7 +4,6 @@ import lombok.Data;
 
 import javax.persistence.*;
 import java.util.List;
-import java.util.Set;
 
 @Data
 @Entity
@@ -20,6 +19,6 @@ public class Recipe {
 //    @ManyToMany
 //    private Set<RecipeIngredient> recipeIngredients;
 
-    @OneToMany(cascade = CascadeType.ALL)//(mappedBy = "recipe")
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)//(mappedBy = "recipe")
     private List<Step> steps;
 }
