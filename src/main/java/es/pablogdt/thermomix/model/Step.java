@@ -17,10 +17,12 @@ public class Step {
     @GeneratedValue
     private Long id;
     private int stepOrder;
+
+    @Enumerated(EnumType.STRING)
     private ActionType action;
     private Integer time;
     private TimeUnit timeUnit;
-    private Integer speed;
+    private Double speed;
     private Integer temperature;
     private String description;
     private boolean usesThermomix = true;

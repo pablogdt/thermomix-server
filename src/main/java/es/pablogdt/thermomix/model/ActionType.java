@@ -1,5 +1,15 @@
 package es.pablogdt.thermomix.model;
 
 public enum ActionType {
-    KNEAD, CUT, INVERSE_SPIN, VAROMA_TRAY, COOK, ADD
+    KNEAD("Amasar"), INVERSE_SPIN("Giro inverso"), TURBO("Turbo"), VAROMA_TRAY("Bandeja varoma");
+
+    private String description;
+
+    private ActionType(final String description) {
+        this.description = description;
+    }
+
+    public String getDescription() {
+        return description;
+    }
 }

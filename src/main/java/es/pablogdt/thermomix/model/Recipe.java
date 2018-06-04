@@ -14,6 +14,7 @@ public class Recipe {
 
     private String name;
 
+    @Enumerated(EnumType.STRING)
     private RecipeCategory category;
 
 //    @ManyToMany

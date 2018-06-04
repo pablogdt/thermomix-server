@@ -19,6 +19,7 @@ public class RecipeIngredient {
 
     private int amount;
 
+    @Enumerated(EnumType.STRING)
     private AmountType amountType = AmountType.GRAMES;
 
     @ManyToOne//(cascade=CascadeType.ALL)
