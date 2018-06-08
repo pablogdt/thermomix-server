@@ -47,6 +47,12 @@ public class RecipeCrudController {
         return recipeCrudService.findRecipesByIngredient(ingredient);
     }
 
+    @GetMapping("/find/ingredient/id/{id}")
+    @ResponseBody
+    public List<Recipe> findByIngredientId(@PathVariable("id") Long id) {
+        return recipeCrudService.findRecipesByIngredientId(id);
+    }
+
     @GetMapping("/findAll")
     @ResponseBody
     public List<Recipe> findAll(final Pageable pageable) {

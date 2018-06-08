@@ -41,6 +41,10 @@ public class RecipeCrudService {
         return recipeRepository.findByIngredient(ingredient);
     }
 
+    public List<Recipe> findRecipesByIngredientId(final Long id) {
+        return recipeRepository.findByIngredientId(id);
+    }
+
     public List<Recipe> findAllRecipes(final Pageable pageable) {
         return Lists.newArrayList(recipeRepository.findAll(pageable));
     }
@@ -72,7 +76,7 @@ public class RecipeCrudService {
         }
     }
 
-    private Recipe saveRecipe(Recipe recipe) {
+    private Recipe saveRecipe(final Recipe recipe) {
         for (Step step : recipe.getSteps()) {
             if (step.getRecipeIngredientsToAdd() != null && !step.getRecipeIngredientsToAdd().isEmpty()) {
                 for (RecipeIngredient recipeIngredientToAdd : step.getRecipeIngredientsToAdd()) {
