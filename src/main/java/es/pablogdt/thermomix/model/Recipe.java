@@ -18,6 +18,11 @@ public class Recipe {
     @Enumerated(EnumType.STRING)
     private RecipeCategory category;
 
+    @Enumerated(EnumType.STRING)
+    private ThermomixModel thermomixModel;
+
+    private Integer servings;
+
     @Transient
     private Integer calories = 0;
 

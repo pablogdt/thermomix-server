@@ -72,6 +72,8 @@ public class RecipeCrudService {
             storedRecipe.getSteps().addAll(recipe.getSteps());
             storedRecipe.setCategory(recipe.getCategory());
             storedRecipe.setName(recipe.getName());
+            storedRecipe.setServings(recipe.getServings());
+            storedRecipe.setThermomixModel(recipe.getThermomixModel());
             return saveRecipe(storedRecipe);
         }
     }

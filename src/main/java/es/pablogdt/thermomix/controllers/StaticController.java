@@ -3,6 +3,7 @@ package es.pablogdt.thermomix.controllers;
 import es.pablogdt.thermomix.model.ActionType;
 import es.pablogdt.thermomix.model.AmountType;
 import es.pablogdt.thermomix.model.RecipeCategory;
+import es.pablogdt.thermomix.model.ThermomixModel;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -43,6 +44,16 @@ public class StaticController {
         Map<String, String> map = new HashMap<>();
         for (ActionType actionType : ActionType.values()) {
             map.put(actionType.name(), actionType.getDescription());
+        }
+        return map;
+    }
+
+    @GetMapping("/thermomix-models")
+    @ResponseBody
+    public Map<String, String> getThermomixModels() {
+        Map<String, String> map = new HashMap<>();
+        for (ThermomixModel thermomixModel : ThermomixModel.values()) {
+            map.put(thermomixModel.name(), thermomixModel.getDescription());
         }
         return map;
     }
